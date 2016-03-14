@@ -15,17 +15,20 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 //import java.awt.*;
@@ -41,6 +44,7 @@ private Stage stage;
     private Scene scene;
     private BorderPane root;
     private AnchorPane anchorPane;
+
     private int btPress;
 
     public static void main(String[] args) {
@@ -74,11 +78,11 @@ stage.show();
         anchorPane = new AnchorPane();
         root.setCenter(anchorPane);
 
-        Image image = new Image("file:////Users/Joongji/IdeaProjects/woiefjo/out/production/woiefjo/Vid/1.jpg");
+        Image image = new Image("file:///Users/Joongji/IdeaProjects/woiefjo/src/Vid/1.jpg");
         ImageView vidImage = new ImageView(image);
         vidImage.setFitHeight(300);
         vidImage.setFitWidth(300);
-        Image image2 = new Image("file:////Users/Joongji/IdeaProjects/woiefjo/out/production/woiefjo/Vid/2.jpg");
+        Image image2 = new Image("file:////Users/Joongji/IdeaProjects/woiefjo/src/Vid/2.jpg");
         ImageView vidImage2 = new ImageView(image2);
         vidImage2.setFitHeight(300);
         vidImage2.setFitWidth(300);
@@ -125,15 +129,15 @@ stage.show();
         hBox2.setSpacing(500);
         hBox2.getChildren().addAll(button, button2);
 
-        Button bt1 = new Button("Questions");
-        Button bt2 = new Button("Questions");
+        Button bt1 = new Button("Questions for Lecture 1");
+        Button bt2 = new Button("Questions for Lecture 2");
 
         bt1.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-               question1();
-btPress=1;
+                stage.setScene(displayQuestion("1"));
+                btPress = 1;
                 //Need to make questions appear;
             }
         });
@@ -141,8 +145,9 @@ btPress=1;
 
             @Override
             public void handle(ActionEvent event) {
-                //Need to make questions appear
-                btPress=2;
+                stage.setScene(displayQuestion("2"));
+                btPress = 1;
+                //Need to make questions appear;
             }
         });
 
@@ -182,6 +187,7 @@ btPress=1;
         VBox vBox = new VBox();
         vBox.getChildren().addAll(hbox3, hbox, hBox2, hbox4);
         vBox.setSpacing(100);
+        title.setTextAlignment(TextAlignment.CENTER);
 
         anchorPane.getChildren().addAll(title, vBox);
 
@@ -194,6 +200,783 @@ btPress=1;
 
 
     }
+    public Scene displayQuestion(String questions){
+        int choice = new Integer(questions);
+        int one = new Integer(1);
+        int two = new Integer(2);
+
+        Button save = new Button("Save Answer");
+        Button n1 = new Button("Q1");
+        Button n2 = new Button("Q2");
+        Button n3 = new Button("Q3");
+        Button n4 = new Button("Q4");
+        Button n5 = new Button("Q5");
+        Button n6 = new Button("Q6");
+        Button n7 = new Button("Q7");
+        Button n8 = new Button("Q8");
+        Button n9 = new Button("Q9");
+        Button n10 = new Button("Q10");
+        Button exit = new Button("Exit to Main");
+
+        Text q = new Text("Time to Quiz!");
+
+
+
+        Group root = new Group();
+
+
+        q.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        q.setFill(Color.GOLD);
+
+        Text a = new Text();
+
+        a.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        a.setFill(Color.GOLD);
+        Text b = new Text();
+
+        b.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        b.setFill(Color.GOLD);
+        Text c = new Text();
+
+        c.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        c.setFill(Color.GOLD);
+
+        Image correct = new Image("file:///Users/Joongji/IdeaProjects/woiefjo/src/Vid/Correct.png");
+        ImageView cor = new ImageView(correct);
+        cor.setFitHeight(300);
+        cor.setFitWidth(300);
+        Image wrong = new Image("file:///Users/Joongji/IdeaProjects/woiefjo/src/Vid/Wrong.png");
+        ImageView wron = new ImageView(wrong);
+        wron.setFitHeight(300);
+        wron.setFitWidth(300);
+        final ToggleGroup group = new ToggleGroup();
+
+        RadioButton rb1 = new RadioButton("1");
+        rb1.setToggleGroup(group);
+        rb1.setSelected(true);
+        rb1.setTextFill(Color.WHITE);
+
+        RadioButton rb2 = new RadioButton("2");
+        rb2.setToggleGroup(group);
+        rb2.setTextFill(Color.WHITE);
+
+        RadioButton rb3 = new RadioButton("3");
+        rb3.setToggleGroup(group);
+        rb3.setTextFill(Color.WHITE);
+
+        //String chosenAnswer = group.getSelectedToggle().toString().substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+
+        VBox vBox = new VBox();
+        VBox vBox2 = new VBox();
+        HBox hBoxqn = new HBox();
+        HBox hboxq = new HBox();
+        HBox hBoxa = new HBox();
+        HBox hBoxrb = new HBox();
+        HBox hBoxImg = new HBox();
+        HBox hBoxExit = new HBox();
+        hBoxExit.getChildren().addAll(exit);
+          hBoxa.getChildren().addAll(save);
+        hBoxqn.getChildren().addAll(n1, n2, n3, n4, n5, n6, n7, n8, n9, n10);
+        hboxq.getChildren().addAll(vBox2);
+        hBoxrb.getChildren().addAll(rb1, rb2, rb3);
+
+        vBox.getChildren().addAll(hboxq, hBoxqn,hBoxExit);
+        vBox2.getChildren().addAll(q, a, b, c, hBoxrb, hBoxa, hBoxImg);
+        vBox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vBox);
+            Scene scene = new Scene(root, 1400, 900  , Color.BLACK);
+
+        if (choice==one){
+            n1.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(0);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n2.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(1);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n3.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(2);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n4.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(3);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n5.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(4);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n5.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(4);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n6.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(5);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n7.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(6);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n8.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(7);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n9.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(8);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+            n10.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question question = new Question(1);
+                    q.setText(question.getQuestionText());
+                    a.setText(question.getQuestionChoice1());
+                    b.setText(question.getQuestionChoice2());
+                    c.setText(question.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer) == question.getCorrect()) {
+
+                                hBoxImg.getChildren().addAll(cor);
+                            } else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+                    });
+                }
+            });
+
+
+        }else {
+            n1.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(0);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+
+            n2.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(1);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+            n3.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(2);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+            n4.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(3);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+
+
+                    //Need to make questions appear;
+                }
+            });
+            n5.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(4);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+
+
+                    //Need to make questions appear;
+                }
+            });
+            n6.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(5);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+
+
+                    //Need to make questions appear;
+                }
+            });
+            n7.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(6);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+            n8.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(7);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+            n9.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(8);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+            n10.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+
+                    hBoxImg.getChildren().clear();
+                    Question2 question2 = new Question2(9);
+                    q.setText(question2.getQuestionText());
+                    a.setText(question2.getQuestionChoice1());
+                    b.setText(question2.getQuestionChoice2());
+                    c.setText(question2.getQuestionChoice3());
+
+                    save.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            String chosenAnswer = group.getSelectedToggle().toString().
+                                    substring(group.getSelectedToggle().toString().indexOf("'") + 1, group.getSelectedToggle().toString().length() - 1);
+
+                            if (Integer.parseInt(chosenAnswer)==question2.getCorrect()){
+
+                                hBoxImg.getChildren().addAll(cor);
+                            }else {
+                                hBoxImg.getChildren().add(wron);
+                            }
+
+                        }
+
+
+                    });
+                }
+
+                //Need to make questions appear;
+
+            });
+        }
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                stage.setScene(displayMain());
+            }
+        });
+
+
+        stage.show();
+    return scene;
+    }
+
+
+
 
     public Scene displayVideo(String videoType) {
 
@@ -244,7 +1027,7 @@ btPress=1;
             }
         });
         player.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
+             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration current) {
                 slider.setValue(current.toSeconds());
             }
@@ -262,77 +1045,5 @@ btPress=1;
 
     }
 
-    public void question1() {
-        int questionNum1 = (int) (Math.random() * 2) + 1;
-        int questionNum2 = (int) (Math.random() * 2) + 3;
-        int questionNum3 = (int) (Math.random() * 2) + 5;
-        int questionNum4 = (int) (Math.random() * 2) + 7;
-        int questionNum5 = (int) (Math.random() * 2) + 9;
 
-        List<String> content = new ArrayList<String>();
-        File file = new File(Main.class.getResource("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions" + btPress + "/Q.rtf").toString());
-
-
-        int count = 1;         // want to add counter
-
-
-
-        Text q1 = new Text();
-        q1.setFont(new Font(20));
-        q1.setWrappingWidth(200);
-        q1.setTextAlignment(TextAlignment.JUSTIFY);
-        q1.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum1 + "Q.rtf"); //maybe questionNum"num"
-        Text a1 = new Text();
-        a1.setFont(new Font(20));
-        a1.setTextAlignment(TextAlignment.JUSTIFY);
-        a1.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum1 + "1.rtf");
-        Text b1 = new Text();
-        b1.setFont(new Font(20));
-        b1.setTextAlignment(TextAlignment.JUSTIFY);
-        b1.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum1 + "2.rtf");
-        Text c1 = new Text();
-        c1.setFont(new Font(20));
-        c1.setTextAlignment(TextAlignment.JUSTIFY);
-        c1.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum1 + "3.rtf");
-
-        Text q2 = new Text();
-        q2.setFont(new Font(20));
-        q2.setTextAlignment(TextAlignment.JUSTIFY);
-        q2.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum2 + "Q.rtf");
-        Text a2 = new Text();
-        a2.setFont(new Font(20));
-        a2.setTextAlignment(TextAlignment.JUSTIFY);
-        a2.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum2 + "1.rtf");
-        Text b2 = new Text();
-        b2.setFont(new Font(20));
-        b2.setTextAlignment(TextAlignment.JUSTIFY);
-        b2.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum2 + "2.rtf");
-        Text c2 = new Text();
-        c2.setFont(new Font(20));
-        c2.setTextAlignment(TextAlignment.JUSTIFY);
-        c2.setText("file:////Users/Joongji/IdeaProjects/woiefjo/src/Questions1/" + questionNum2 + "3.rtf");
-
-
-        Button button1 = new Button();
-        Button button2 = new Button();
-        Button button3 = new Button();
-        Button buttonNext = new Button();
-
-        HBox hbox = new HBox();
-        //make it so that, if it is question1, display q1, if question2, display q2
-        hbox.getChildren().addAll(q1);
-        hbox.setSpacing(100);
-        HBox hBox2 = new HBox();
-        hBox2.getChildren().addAll(a1,b1,c1);
-        // need to make it display a1,b1,c1 for question1, a2,b2,c3 for question2
-        HBox hBox3 = new HBox();
-        hBox3.getChildren().addAll(button1, button2, button3, buttonNext);
-
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(hbox, hBox2, hBox3);
-        vBox.setSpacing(100);
-
-        anchorPane.getChildren().addAll(vBox);
-
-    }
 }
