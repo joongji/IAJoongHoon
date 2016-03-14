@@ -1,0 +1,10 @@
+Q1. Plz, 1.Yes, 2.No, 3.Maybe, 1
+Q2. Will you die for me, 1.Yes, 2.No, 3.Maybe, 1
+Q3. Daijobu??, 1.Yes, 2.No, 3.Maybe, 1
+Q4. Kawaii desune, 1.Yes, 2.No, 3.Maybe, 1
+Q5. 나가 뒤질래??, 1.Yes, 2.No, 3.Maybe, 1
+Q6. 니가 사람이냐?, 1.Yes, 2.No, 3.Maybe, 1
+Q7. 제발 나가 뒤져라, 1.Yes, 2.No, 3.Maybe, 1
+Q8. 용희는 병신이다, 1.Yes, 2.No, 3.Maybe, 1
+Q9. 너는 나가 뒤지는게 사회에 봉사하는거다, 1.Yes, 2.No, 3.Maybe, 1
+Q10. 뒤져줘, 1.Yes, 2.No, 3.Maybe, 1

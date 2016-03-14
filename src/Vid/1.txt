@@ -1,0 +1,10 @@
+Q1. Die, 1.Yes, 2.No, 3.Maybe, 1
+Q2. 1.awoejfoiqjw,2.jewjfoiwe,3.wefqwefqwefqwef,QUEUUEUEUE, 2
+Q3. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 1
+Q4. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 2
+Q5. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 3
+Q6. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 1
+Q7. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 2
+Q8. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 2
+Q9. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 3
+Q10. qwhqwehlihqwehe,qwerwqerqwer,bsbdsxxz,weijewjfiejfiewifjweij, 1

@@ -1,0 +1,5 @@
+Q1. die
+yes
+no
+maybe
+sometime
